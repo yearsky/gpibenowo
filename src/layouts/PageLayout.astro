@@ -12,14 +12,15 @@ interface Props {
   author?: string;
   noindex?: boolean;
   fullWidth?: boolean;
+  heroPage?: boolean;
 }
 
-const { fullWidth = false, ...rest } = Astro.props;
+const { fullWidth = false, heroPage = false, ...rest } = Astro.props;
 ---
 
 <BaseLayout {...rest}>
   <Header />
-  <main class:list={[{ 'pt-20': true }]}>
+  <main class:list={[{ 'pt-20': !heroPage }]}>
     <slot />
   </main>
   <Footer />
