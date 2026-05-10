@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gpibbenowo.org/sitemap-index.xml
