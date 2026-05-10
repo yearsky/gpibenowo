@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" role="img" aria-label="GPIB Benowo Surabaya wordmark">
+  <rect width="80" height="80" rx="14" fill="#0f2044"></rect>
+  <line x1="40" y1="14" x2="40" y2="66" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"></line>
+  <line x1="20" y1="30" x2="60" y2="30" stroke="#f59e0b" stroke-width="7" stroke-linecap="round"></line>
+  <text x="100" y="40" font-family="Playfair Display, Georgia, serif" font-weight="700" font-size="26" fill="#0f2044" letter-spacing="-0.01em">GPIB Benowo</text>
+  <text x="100" y="62" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="13" fill="#57534e" letter-spacing="0.18em" text-transform="uppercase">SURABAYA · EST. 1979</text>
+</svg>

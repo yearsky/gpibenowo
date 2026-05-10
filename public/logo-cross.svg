@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GPIB Benowo cross mark">
   <rect width="64" height="64" rx="12" fill="#0f2044"></rect>
   <line x1="32" y1="10" x2="32" y2="54" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"></line>
   <line x1="16" y1="24" x2="48" y2="24" stroke="#f59e0b" stroke-width="6" stroke-linecap="round"></line>

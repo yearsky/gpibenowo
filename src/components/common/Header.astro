@@ -67,16 +67,27 @@ const currentPath = Astro.url.pathname;
         })}
       </nav>
 
-      <!-- CTA + Mobile toggle -->
+      <!-- CTA + Theme toggle + Mobile toggle -->
       <div class="flex items-center gap-3">
-        <a
-          href="/ibadah"
-          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium bg-gold-500 hover:bg-gold-400 text-stone-950 rounded-full transition-colors"
+        <!-- Theme toggle -->
+        <button
+          id="theme-toggle"
+          class="p-2 text-white/80 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
+          aria-label="Ganti tema"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"/>
+          <svg id="icon-sun" class="w-5 h-5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
           </svg>
-          Jadwal Ibadah
+          <svg id="icon-moon" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+        </button>
+
+        <a
+          href="/donasi"
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold bg-gold-500 hover:bg-gold-400 text-stone-950 rounded-lg transition-colors"
+        >
+          Donasi
         </a>
 
         <!-- Hamburger -->
@@ -162,5 +173,25 @@ const currentPath = Astro.url.pathname;
     btn.setAttribute('aria-expanded', String(!isOpen));
     iconOpen.classList.toggle('hidden', !isOpen);
     iconClose.classList.toggle('hidden', isOpen);
+  });
+
+  // Theme toggle
+  const themeBtn = document.getElementById('theme-toggle')!;
+  const iconSun  = document.getElementById('icon-sun')!;
+  const iconMoon = document.getElementById('icon-moon')!;
+
+  function applyTheme(theme: string) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    iconSun.classList.toggle('hidden', theme === 'light');
+    iconMoon.classList.toggle('hidden', theme === 'dark');
+  }
+
+  const saved = localStorage.getItem('theme') ?? 'light';
+  applyTheme(saved);
+
+  themeBtn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') ?? 'light';
+    applyTheme(current === 'dark' ? 'light' : 'dark');
   });
 </script>
