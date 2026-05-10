@@ -1,86 +1,108 @@
 ---
 import { jadwalIbadah } from '@/data/jadwal-ibadah';
 
-const hariOrder = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+const HARI_ORDER = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
 const sorted = [...jadwalIbadah].sort(
-  (a, b) => hariOrder.indexOf(a.hari) - hariOrder.indexOf(b.hari)
+  (a, b) => HARI_ORDER.indexOf(a.hari) - HARI_ORDER.indexOf(b.hari)
 );
+const uniqueHari = [...new Set(sorted.map(j => j.hari))];
 ---
 
-<section class="py-24 bg-brand-950 relative overflow-hidden">
-  <!-- Background motif -->
-  <div class="absolute right-0 top-0 bottom-0 w-96 opacity-5 pointer-events-none" aria-hidden="true">
-    <svg viewBox="0 0 200 400" fill="none" class="w-full h-full">
-      <line x1="100" y1="0" x2="100" y2="400" stroke="white" stroke-width="1"/>
-      <line x1="0" y1="120" x2="200" y2="120" stroke="white" stroke-width="1"/>
-      <rect x="60" y="60" width="80" height="200" rx="2" stroke="white" stroke-width="0.5" fill="none"/>
-    </svg>
-  </div>
-
-  <div class="container-site relative">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="h-px w-8 bg-gold-400"></div>
-          <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Jadwal</span>
-        </div>
-        <h2 class="font-display text-white">Ibadah & Pelayanan</h2>
-      </div>
-      <a href="/ibadah" class="text-sm text-brand-300 hover:text-white transition-colors shrink-0">
-        Lihat semua →
-      </a>
+<section id="ibadah" class="section">
+  <div class="container-site">
+    <div class="section-header">
+      <img src="/laurel-wreath.svg" alt="" class="section-wreath" aria-hidden="true" />
+      <div class="eyebrow">Jadwal Mingguan</div>
+      <h2 class="section-title">Jadwal Ibadah</h2>
+      <p class="section-subtitle">
+        Bergabunglah dalam ibadah dan persekutuan jemaat sepanjang minggu di Gedung Gereja GPIB Benowo.
+      </p>
     </div>
 
-    <!-- Timeline layout -->
-    <div class="relative">
-      <!-- Vertical line -->
-      <div class="absolute left-[5.5rem] top-0 bottom-0 w-px bg-white/10 hidden sm:block" aria-hidden="true"></div>
+    <div class="filter-chips" id="jadwal-filters" role="tablist" aria-label="Filter jadwal">
+      <button role="tab" aria-selected="true" class="chip chip-active" data-filter="Semua">Semua</button>
+      {uniqueHari.map(h => (
+        <button role="tab" aria-selected="false" class="chip" data-filter={h}>{h}</button>
+      ))}
+    </div>
 
-      <div class="space-y-4">
-        {sorted.map((jadwal) => (
-          <div class="flex gap-0 sm:gap-8 items-start group">
-            <!-- Day column -->
-            <div class="w-20 sm:w-24 shrink-0 text-right pr-4 sm:pr-0 pt-3">
-              <span class="text-xs text-white/40 font-medium">{jadwal.hari}</span>
-            </div>
-
-            <!-- Dot -->
-            <div class="hidden sm:flex w-3 h-3 rounded-full border-2 border-white/20 group-hover:border-gold-400 mt-4 shrink-0 transition-colors bg-brand-950 relative z-10"></div>
-
-            <!-- Card -->
-            <div class="flex-1 p-4 rounded-xl bg-white/5 hover:bg-white/8 border border-white/5 hover:border-white/15 transition-all">
-              <div class="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <div class="flex items-center gap-2 mb-0.5">
-                    <h3 class="font-semibold text-white text-base">{jadwal.nama}</h3>
-                    {jadwal.isLive && (
-                      <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-500/20 text-red-300 border border-red-500/30 font-medium">
-                        ● LIVE
-                      </span>
-                    )}
-                  </div>
-                  <p class="text-sm text-white/50">{jadwal.lokasi}</p>
-                </div>
-                <div class="text-right shrink-0">
-                  <span class="text-gold-400 font-display font-semibold text-lg">{jadwal.waktu}</span>
-                </div>
-              </div>
-            </div>
+    <ul class="jadwal-list" id="jadwal-list">
+      {sorted.map(row => (
+        <li class="jadwal-row" data-hari={row.hari}>
+          <div class="jadwal-day">
+            <span class="jadwal-hari">{row.hari}</span>
+            <span class="today-tag" style="display:none">Hari Ini</span>
           </div>
-        ))}
-      </div>
-    </div>
+          <div class="jadwal-meta">
+            <h3 class="jadwal-nama">{row.nama}</h3>
+            <div class="jadwal-loc">{row.lokasi}</div>
+          </div>
+          <div class="jadwal-time">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+            </svg>
+            {row.waktu}
+          </div>
+          <div class="jadwal-action">
+            {row.isLive ? (
+              <span class="live-badge">
+                <span class="live-dot"></span>Live Sekarang
+              </span>
+            ) : (
+              <a href="/ibadah" class="link-arrow">
+                Detail
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+            )}
+          </div>
+        </li>
+      ))}
+    </ul>
 
-    <div class="mt-10 text-center">
-      <a
-        href="/ibadah"
-        class="inline-flex items-center gap-2 px-6 py-3 border border-white/20 hover:border-gold-400 text-white hover:text-gold-300 rounded-full text-sm transition-all"
-      >
+    <div style="text-align:center; margin-top: 32px;">
+      <a href="/ibadah" class="link-arrow link-arrow-lg">
         Lihat Jadwal Lengkap
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
         </svg>
       </a>
     </div>
   </div>
 </section>
+
+<script>
+  const HARI_ID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+  const todayIdx = new Date().getDay();
+  const todayHari = HARI_ID[todayIdx];
+
+  const filters = document.querySelectorAll<HTMLButtonElement>('#jadwal-filters .chip');
+  const rows = document.querySelectorAll<HTMLLIElement>('#jadwal-list .jadwal-row');
+
+  // Highlight today's rows
+  rows.forEach(row => {
+    if (row.dataset.hari === todayHari) {
+      row.classList.add('is-today');
+      const tag = row.querySelector('.today-tag') as HTMLElement | null;
+      if (tag) tag.style.display = '';
+    }
+  });
+
+  // Filter chip logic
+  function setFilter(filter: string) {
+    filters.forEach(btn => {
+      const active = btn.dataset.filter === filter;
+      btn.classList.toggle('chip-active', active);
+      btn.setAttribute('aria-selected', String(active));
+    });
+    rows.forEach(row => {
+      const show = filter === 'Semua' || row.dataset.hari === filter;
+      (row as HTMLElement).style.display = show ? '' : 'none';
+    });
+  }
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => setFilter(btn.dataset.filter ?? 'Semua'));
+  });
+</script>

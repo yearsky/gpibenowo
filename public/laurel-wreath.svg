@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 120" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="laurel wreath ornament">
+  
+  <path d="M120 100 C 80 90, 50 70, 30 40"></path>
+  <g>
+    <ellipse cx="42" cy="50" rx="6" ry="3" transform="rotate(-30 42 50)"></ellipse>
+    <ellipse cx="55" cy="60" rx="7" ry="3.2" transform="rotate(-25 55 60)"></ellipse>
+    <ellipse cx="68" cy="68" rx="7" ry="3.2" transform="rotate(-18 68 68)"></ellipse>
+    <ellipse cx="82" cy="76" rx="7" ry="3.2" transform="rotate(-14 82 76)"></ellipse>
+    <ellipse cx="96" cy="83" rx="7" ry="3.2" transform="rotate(-10 96 83)"></ellipse>
+    <ellipse cx="38" cy="38" rx="6" ry="2.8" transform="rotate(-50 38 38)"></ellipse>
+    <ellipse cx="50" cy="44" rx="6" ry="2.8" transform="rotate(-45 50 44)"></ellipse>
+    <ellipse cx="64" cy="52" rx="6" ry="2.8" transform="rotate(-38 64 52)"></ellipse>
+    <ellipse cx="78" cy="60" rx="6" ry="2.8" transform="rotate(-32 78 60)"></ellipse>
+    <ellipse cx="92" cy="68" rx="6" ry="2.8" transform="rotate(-25 92 68)"></ellipse>
+  </g>
+  
+  <path d="M120 100 C 160 90, 190 70, 210 40"></path>
+  <g>
+    <ellipse cx="198" cy="50" rx="6" ry="3" transform="rotate(30 198 50)"></ellipse>
+    <ellipse cx="185" cy="60" rx="7" ry="3.2" transform="rotate(25 185 60)"></ellipse>
+    <ellipse cx="172" cy="68" rx="7" ry="3.2" transform="rotate(18 172 68)"></ellipse>
+    <ellipse cx="158" cy="76" rx="7" ry="3.2" transform="rotate(14 158 76)"></ellipse>
+    <ellipse cx="144" cy="83" rx="7" ry="3.2" transform="rotate(10 144 83)"></ellipse>
+    <ellipse cx="202" cy="38" rx="6" ry="2.8" transform="rotate(50 202 38)"></ellipse>
+    <ellipse cx="190" cy="44" rx="6" ry="2.8" transform="rotate(45 190 44)"></ellipse>
+    <ellipse cx="176" cy="52" rx="6" ry="2.8" transform="rotate(38 176 52)"></ellipse>
+    <ellipse cx="162" cy="60" rx="6" ry="2.8" transform="rotate(32 162 60)"></ellipse>
+    <ellipse cx="148" cy="68" rx="6" ry="2.8" transform="rotate(25 148 68)"></ellipse>
+  </g>
+  
+  <circle cx="120" cy="100" r="3" fill="currentColor" stroke="none"></circle>
+  <path d="M120 103 L 116 112 M120 103 L 124 112"></path>
+</svg>

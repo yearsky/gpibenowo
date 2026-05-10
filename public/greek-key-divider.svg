@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 24" fill="none" stroke="currentColor" stroke-width="1.5" role="img" aria-label="Greek key meander divider">
+  <g stroke-linejoin="miter">
+    <path d="M0 12 H 20 V 4 H 36 V 20 H 4 V 12"></path>
+    <path d="M40 12 H 60 V 4 H 76 V 20 H 44 V 12"></path>
+    <path d="M80 12 H 100 V 4 H 116 V 20 H 84 V 12"></path>
+    <path d="M120 12 H 140 V 4 H 156 V 20 H 124 V 12"></path>
+    <path d="M160 12 H 180 V 4 H 196 V 20 H 164 V 12"></path>
+    <path d="M200 12 H 220 V 4 H 236 V 20 H 204 V 12"></path>
+    <path d="M240 12 H 260 V 4 H 276 V 20 H 244 V 12"></path>
+    <path d="M280 12 H 300 V 4 H 316 V 20 H 284 V 12"></path>
+  </g>
+</svg>

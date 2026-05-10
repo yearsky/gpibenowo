@@ -2,68 +2,73 @@
 import { getCollection } from 'astro:content';
 import { formatDate } from '@/utils/date';
 
-const allRenungan = await getCollection('renungan', ({ data }) => !data.draft);
-const sorted = allRenungan.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
-const latest = sorted.slice(0, 3);
+const all = await getCollection('renungan', ({ data }) => !data.draft);
+const sorted = all.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+const featured = sorted.find(r => r.data.featured) ?? sorted[0];
+const rest = sorted.filter(r => r !== featured).slice(0, 2);
+
+function initials(name: string) {
+  return name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
+}
 ---
 
-<section class="py-24 bg-stone-50">
-  <div class="container-site">
-    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="h-px w-8 bg-gold-400"></div>
-          <span class="text-gold-600 text-xs font-semibold tracking-widest uppercase">Firman Tuhan</span>
-        </div>
-        <h2 class="font-display text-brand-900">Renungan Harian</h2>
-      </div>
-      <a href="/renungan" class="text-sm text-brand-600 hover:text-brand-800 font-medium transition-colors shrink-0">
-        Semua renungan →
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {latest.map((post, i) => (
-        <a
-          href={`/renungan/${post.id}`}
-          class:list={[
-            'group block bg-stone-50 border-l-4 rounded-r-2xl p-6 hover:shadow-md transition-all',
-            { 'border-gold-400': i === 0, 'border-gold-300': i === 1, 'border-gold-200': i === 2 }
-          ]}
-          style="background: white;"
-        >
-          <!-- Date stamp -->
-          <time
-            datetime={post.data.pubDate.toISOString()}
-            class="block text-xs text-stone-400 mb-3 font-medium"
-          >
-            {formatDate(post.data.pubDate)}
-          </time>
-
-          <!-- Bible verse ref -->
-          <div class="text-xs text-gold-600 font-semibold mb-2 font-verse italic">
-            {post.data.ayat}
+{featured && (
+  <section id="renungan" class="section section-tinted">
+    <div class="container-site">
+      <div class="renungan-grid">
+        <!-- Left: meta + CTA -->
+        <aside class="renungan-meta">
+          <div class="eyebrow">Renungan Hari Ini</div>
+          <h2 class="renungan-title">{featured.data.title}</h2>
+          <div class="renungan-attr">
+            <div class="avatar">{initials(featured.data.author)}</div>
+            <div>
+              <div class="attr-name">{featured.data.author}</div>
+              <div class="attr-meta">
+                {formatDate(featured.data.pubDate)}
+              </div>
+            </div>
           </div>
+          <a href={`/renungan/${featured.id}`} class="btn btn-navy">
+            Baca Selengkapnya
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </a>
 
-          <!-- Title -->
-          <h3 class="font-display font-semibold text-brand-900 text-lg leading-snug mb-2 group-hover:text-brand-600 transition-colors">
-            {post.data.title}
-          </h3>
+          {rest.length > 0 && (
+            <div style="margin-top: 36px; padding-top: 24px; border-top: 1px solid var(--border-hairline);">
+              <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.14em; color:var(--fg-muted); margin-bottom:12px;">Renungan Lainnya</div>
+              {rest.map(r => (
+                <a href={`/renungan/${r.id}`} style="display:block; margin-bottom:12px; text-decoration:none;">
+                  <div style="font-family: var(--font-display); font-size:14px; font-weight:600; color:var(--color-brand-900); line-height:1.3; margin-bottom:3px;">{r.data.title}</div>
+                  <div style="font-size:12px; color:var(--fg-muted);">{formatDate(r.data.pubDate)}</div>
+                </a>
+              ))}
+            </div>
+          )}
+        </aside>
 
-          <!-- Description -->
-          <p class="text-sm text-stone-500 leading-relaxed line-clamp-2">
-            {post.data.description}
+        <!-- Right: article body -->
+        <article class="renungan-body">
+          <blockquote class="verse-block">
+            "{featured.data.description}"
+          </blockquote>
+          <div class="verse-credit">— {featured.data.ayat}</div>
+
+          <p>
+            {featured.data.description}
           </p>
 
-          <!-- Author -->
-          <div class="mt-4 pt-4 border-t border-stone-100 flex items-center justify-between">
-            <span class="text-xs text-stone-400">{post.data.author}</span>
-            <svg class="w-4 h-4 text-brand-400 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </div>
-        </a>
-      ))}
+          {featured.data.tags.length > 0 && (
+            <div class="tag-pile">
+              {featured.data.tags.map(tag => (
+                <span class="tag">#{tag}</span>
+              ))}
+            </div>
+          )}
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+)}

@@ -1,8 +1,6 @@
 ---
 import PageLayout from '@/layouts/PageLayout.astro';
 import HeroSection from '@/components/home/HeroSection.astro';
-import VerseStrip from '@/components/home/VerseStrip.astro';
-import WelcomeSection from '@/components/home/WelcomeSection.astro';
 import UpcomingServices from '@/components/home/UpcomingServices.astro';
 import LatestRenungan from '@/components/home/LatestRenungan.astro';
 import LatestBerita from '@/components/home/LatestBerita.astro';
@@ -10,40 +8,7 @@ import LatestBerita from '@/components/home/LatestBerita.astro';
 
 <PageLayout>
   <HeroSection />
-  <WelcomeSection />
-  <VerseStrip />
   <UpcomingServices />
   <LatestRenungan />
   <LatestBerita />
-
-  <!-- Live stream CTA -->
-  <section class="py-20 bg-brand-900 relative overflow-hidden">
-    <div class="absolute inset-0 opacity-5 pointer-events-none" aria-hidden="true">
-      <svg viewBox="0 0 400 200" class="w-full h-full" fill="none">
-        <circle cx="200" cy="100" r="80" stroke="white" stroke-width="0.5"/>
-        <circle cx="200" cy="100" r="120" stroke="white" stroke-width="0.5"/>
-        <line x1="200" y1="20" x2="200" y2="180" stroke="white" stroke-width="0.5"/>
-        <line x1="120" y1="60" x2="280" y2="60" stroke="white" stroke-width="0.5"/>
-      </svg>
-    </div>
-    <div class="container-site text-center relative">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-500/20 border border-red-400/30 text-red-300 text-sm font-medium mb-6">
-        <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
-        Siaran Langsung Ibadah
-      </div>
-      <h2 class="font-display text-white mb-4">Tidak bisa hadir?<br/>Ikuti ibadah dari rumah.</h2>
-      <p class="text-brand-300 mb-8 max-w-md mx-auto">
-        Saksikan ibadah Minggu dan kegiatan spesial secara langsung melalui kanal YouTube kami.
-      </p>
-      <a
-        href="/media"
-        class="inline-flex items-center gap-2.5 px-8 py-3.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-full transition-colors"
-      >
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.5 31.5 0 000 12a31.5 31.5 0 00.5 5.8 3 3 0 002.1 2.1C4.5 20.5 12 20.5 12 20.5s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.5 31.5 0 0024 12a31.5 31.5 0 00-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>
-        </svg>
-        Tonton di YouTube
-      </a>
-    </div>
-  </section>
 </PageLayout>
