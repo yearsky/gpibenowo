@@ -155,9 +155,11 @@ const currentPath = Astro.url.pathname;
   const iconOpen = document.getElementById('icon-open')!;
   const iconClose = document.getElementById('icon-close')!;
 
-  // Scroll: make header solid
+  // Scroll: make header solid. On pages without a hero, always keep it solid.
+  const hasHero = document.querySelector('.hero') !== null;
+
   function updateHeader() {
-    if (window.scrollY > 40) {
+    if (!hasHero || window.scrollY > 40) {
       header.classList.add('header-solid');
     } else {
       header.classList.remove('header-solid');
