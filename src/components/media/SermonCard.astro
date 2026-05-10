@@ -1,0 +1,84 @@
+---
+import { formatDate } from '@/utils/date';
+
+interface Props {
+  href: string;
+  title: string;
+  description: string;
+  pubDate: Date;
+  preacher: string;
+  ayat: string;
+  youtubeId: string;
+  duration?: string;
+  ibadah: string;
+}
+
+const {
+  href,
+  title,
+  description,
+  pubDate,
+  preacher,
+  ayat,
+  youtubeId,
+  duration,
+  ibadah,
+} = Astro.props;
+
+const thumbnailUrl = `https://i.ytimg.com/vi/${youtubeId}/mqdefault.jpg`;
+
+const ibadahLabel: Record<string, string> = {
+  'minggu-pagi': 'Minggu Pagi',
+  'minggu-sore': 'Minggu Sore',
+  'rabu': 'Rabu',
+  'jumat-agung': 'Jumat Agung',
+  'natal': 'Natal',
+  'paskah': 'Paskah',
+  'lainnya': 'Lainnya',
+};
+---
+
+<a
+  href={href}
+  class="group block rounded-2xl overflow-hidden bg-brand-950 border border-white/5 hover:border-white/15 hover:shadow-xl transition-all"
+>
+  <!-- Thumbnail -->
+  <div class="relative aspect-video overflow-hidden">
+    <img
+      src={thumbnailUrl}
+      alt={title}
+      class="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-[1.02] transition-all duration-300"
+      loading="lazy"
+    />
+    <!-- Play overlay -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600/70 transition-all">
+        <svg class="w-5 h-5 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+    <!-- Duration badge -->
+    {duration && (
+      <div class="absolute bottom-2 right-2 px-2 py-0.5 bg-black/70 text-white text-xs rounded font-medium">
+        {duration}
+      </div>
+    )}
+    <!-- Ibadah badge -->
+    <div class="absolute top-2 left-2 px-2.5 py-1 bg-gold-500/90 text-stone-950 text-[10px] font-bold rounded uppercase tracking-wide">
+      {ibadahLabel[ibadah] ?? ibadah}
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5">
+    <time datetime={pubDate.toISOString()} class="text-xs text-white/40 font-medium block mb-1.5">
+      {formatDate(pubDate)}
+    </time>
+    <h3 class="font-display text-white font-semibold leading-snug text-base mb-1.5 group-hover:text-gold-300 transition-colors line-clamp-2">
+      {title}
+    </h3>
+    <div class="text-xs text-gold-400 font-verse italic mb-2">{ayat}</div>
+    <div class="text-xs text-white/50">{preacher}</div>
+  </div>
+</a>

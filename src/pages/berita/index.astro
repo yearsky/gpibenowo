@@ -1,0 +1,70 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import PostCard from '@/components/blog/PostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allBerita = await getCollection('berita', ({ data }) => !data.draft);
+const sorted = allBerita.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const categoryLabel: Record<string, string> = {
+  warta: 'Warta Jemaat',
+  kegiatan: 'Kegiatan',
+  pengumuman: 'Pengumuman',
+  jemaat: 'Jemaat',
+};
+
+const categories = ['warta', 'kegiatan', 'pengumuman', 'jemaat'];
+---
+
+<PageLayout
+  title="Berita & Warta"
+  description="Berita terkini, warta jemaat, dan pengumuman dari GPIB Benowo Surabaya."
+>
+  <section class="bg-brand-950 py-24">
+    <div class="container-site">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-8 bg-gold-400"></div>
+        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Berita</span>
+      </div>
+      <h1 class="font-display text-white max-w-2xl">Warta & Berita Jemaat</h1>
+      <p class="text-brand-300 mt-4 max-w-xl">
+        Informasi terkini seputar kegiatan, pengumuman, dan kehidupan jemaat GPIB Benowo Surabaya.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container-site">
+      <!-- Category filter (static badges, no JS) -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        <span class="px-4 py-2 rounded-full bg-brand-600 text-white text-sm font-medium">Semua</span>
+        {categories.map((cat) => (
+          <span class="px-4 py-2 rounded-full border border-stone-200 text-stone-600 text-sm">
+            {categoryLabel[cat]}
+          </span>
+        ))}
+      </div>
+
+      {sorted.length === 0 ? (
+        <p class="text-center text-stone-400 py-16">Belum ada berita tersedia.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {sorted.map((post, i) => (
+            <PostCard
+              href={`/berita/${post.id}`}
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              author={post.data.author}
+              category={post.data.category}
+              categoryLabel={categoryLabel[post.data.category]}
+              tags={post.data.tags}
+              variant="berita"
+              index={i}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</PageLayout>

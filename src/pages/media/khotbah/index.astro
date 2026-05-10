@@ -1,0 +1,70 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import SermonCard from '@/components/media/SermonCard.astro';
+import { getCollection } from 'astro:content';
+
+const allKhotbah = await getCollection('khotbah', ({ data }) => !data.draft);
+const sorted = allKhotbah.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const ibadahLabel: Record<string, string> = {
+  'minggu-pagi': 'Minggu Pagi',
+  'minggu-sore': 'Minggu Sore',
+  'rabu': 'Rabu',
+  'jumat-agung': 'Jumat Agung',
+  'natal': 'Natal',
+  'paskah': 'Paskah',
+  'lainnya': 'Lainnya',
+};
+---
+
+<PageLayout
+  title="Arsip Khotbah"
+  description="Kumpulan arsip khotbah GPIB Benowo Surabaya yang dapat ditonton kapan saja."
+>
+  <section class="bg-brand-950 py-24">
+    <div class="container-site">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-8 bg-gold-400"></div>
+        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Arsip Khotbah</span>
+      </div>
+      <h1 class="font-display text-white max-w-2xl">Khotbah yang Menguatkan Iman</h1>
+      <p class="text-brand-300 mt-4 max-w-xl">
+        Tonton kembali khotbah-khotbah yang memberkati dari pelayan Tuhan di GPIB Benowo Surabaya.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-stone-950">
+    <div class="container-site">
+      <!-- Filter chips -->
+      <div class="flex flex-wrap gap-2 mb-10">
+        <span class="px-4 py-2 rounded-full bg-brand-600 text-white text-sm font-medium">Semua</span>
+        {Object.entries(ibadahLabel).map(([, label]) => (
+          <span class="px-4 py-2 rounded-full border border-white/10 text-white/50 text-sm hover:border-white/30 hover:text-white/80 cursor-pointer transition-colors">
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {sorted.length === 0 ? (
+        <p class="text-center text-white/40 py-16">Belum ada khotbah tersedia.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sorted.map((k) => (
+            <SermonCard
+              href={`/media/khotbah/${k.id}`}
+              title={k.data.title}
+              description={k.data.description}
+              pubDate={k.data.pubDate}
+              preacher={k.data.preacher}
+              ayat={k.data.ayat}
+              youtubeId={k.data.youtubeId}
+              duration={k.data.duration}
+              ibadah={k.data.ibadah}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</PageLayout>

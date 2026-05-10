@@ -1,0 +1,118 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="Visi & Misi"
+  description="Visi dan misi GPIB Benowo Surabaya sebagai landasan pelayanan dan arah pertumbuhan jemaat."
+>
+  <section class="bg-brand-950 py-24">
+    <div class="container-site">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-8 bg-gold-400"></div>
+        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Visi & Misi</span>
+      </div>
+      <h1 class="font-display text-white max-w-2xl">Arah dan tujuan pelayanan kami</h1>
+    </div>
+  </section>
+
+  <nav class="bg-white border-b border-stone-100 sticky top-20 z-30">
+    <div class="container-site">
+      <div class="flex gap-1 overflow-x-auto">
+        {[
+          { label: 'Profil', href: '/tentang' },
+          { label: 'Sejarah', href: '/tentang/sejarah' },
+          { label: 'Visi & Misi', href: '/tentang/visi-misi' },
+          { label: 'Pengurus', href: '/tentang/pengurus' },
+        ].map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors',
+              Astro.url.pathname === link.href
+                ? 'border-brand-600 text-brand-700'
+                : 'border-transparent text-stone-500 hover:text-stone-900',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-20">
+    <div class="container-site max-w-4xl space-y-16">
+      <!-- Visi -->
+      <div class="relative p-8 lg:p-12 rounded-3xl bg-brand-950 text-white overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none">
+            <line x1="100" y1="0" x2="100" y2="200" stroke="white" stroke-width="2"/>
+            <line x1="0" y1="70" x2="200" y2="70" stroke="white" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="relative">
+          <span class="text-gold-400 text-xs font-bold tracking-widest uppercase">Visi</span>
+          <h2 class="font-display text-white text-2xl lg:text-3xl mt-3 mb-6 leading-snug">
+            "Menjadi jemaat yang hidup dalam kasih Kristus, bertumbuh dalam iman, dan berbuah dalam pelayanan kepada sesama."
+          </h2>
+          <div class="verse-block">
+            <p class="text-sm font-medium not-italic text-gold-300 font-body mb-1">Yohanes 15:8</p>
+            <p class="font-verse italic text-brand-200">
+              "Dalam hal inilah Bapa-Ku dipermuliakan, yaitu jika kamu berbuah banyak dan dengan demikian kamu adalah murid-murid-Ku."
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Misi -->
+      <div>
+        <span class="text-gold-600 text-xs font-bold tracking-widest uppercase">Misi</span>
+        <h2 class="font-display text-brand-900 mt-3 mb-8">Langkah nyata menuju visi</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {[
+            {
+              no: '01',
+              title: 'Memberitakan Injil',
+              desc: 'Aktif dalam pemberitaan Injil melalui ibadah, persekutuan, dan kesaksian hidup setiap anggota jemaat di tengah masyarakat.',
+            },
+            {
+              no: '02',
+              title: 'Mendidik dalam Iman',
+              desc: 'Menyelenggarakan pengajaran Alkitab yang sistematis untuk semua usia — dari Sekolah Minggu hingga kelompok dewasa.',
+            },
+            {
+              no: '03',
+              title: 'Membangun Persekutuan',
+              desc: 'Menciptakan komunitas yang hangat dan saling mendukung, di mana setiap anggota merasa diterima dan dicintai.',
+            },
+            {
+              no: '04',
+              title: 'Melayani Masyarakat',
+              desc: 'Mengekspresikan kasih Kristus melalui pelayanan diakonia: membantu yang membutuhkan dan berkontribusi pada kesejahteraan masyarakat.',
+            },
+            {
+              no: '05',
+              title: 'Mengembangkan Pemimpin',
+              desc: 'Melatih dan memperlengkapi jemaat untuk menjadi pemimpin rohani yang mampu melayani gereja dan masyarakat.',
+            },
+            {
+              no: '06',
+              title: 'Memanfaatkan Teknologi',
+              desc: 'Menggunakan media digital dan teknologi modern untuk menjangkau lebih banyak jiwa dan mempermudah akses pelayanan.',
+            },
+          ].map((item) => (
+            <div class="flex gap-4 p-5 rounded-2xl border border-stone-100 hover:border-brand-200 hover:bg-brand-50/30 transition-all">
+              <div class="font-display text-3xl font-bold text-brand-100 shrink-0 leading-none">{item.no}</div>
+              <div>
+                <h3 class="font-semibold text-brand-900 mb-1.5">{item.title}</h3>
+                <p class="text-sm text-stone-500 leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

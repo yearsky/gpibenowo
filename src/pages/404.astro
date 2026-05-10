@@ -1,0 +1,38 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+
+<PageLayout title="Halaman Tidak Ditemukan" noindex={true}>
+  <section class="min-h-[70vh] flex items-center justify-center py-20">
+    <div class="container-site text-center max-w-lg">
+      <!-- Cross motif -->
+      <div class="flex justify-center mb-8" aria-hidden="true">
+        <svg width="64" height="96" viewBox="0 0 64 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="32" y1="0" x2="32" y2="96" stroke="#e7e5e4" stroke-width="4" stroke-linecap="round"/>
+          <line x1="8" y1="28" x2="56" y2="28" stroke="#e7e5e4" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="font-display text-8xl font-bold text-stone-100 mb-4 leading-none">404</div>
+      <h1 class="font-display text-2xl text-brand-900 mb-4">Halaman tidak ditemukan</h1>
+      <p class="text-stone-500 mb-8 leading-relaxed">
+        Sepertinya halaman yang Anda cari tidak ada atau telah dipindahkan. Jangan khawatir, Anda selalu dapat kembali ke beranda.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          href="/"
+          class="px-6 py-3 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-full text-sm transition-colors"
+        >
+          Kembali ke Beranda
+        </a>
+        <a
+          href="/kontak"
+          class="px-6 py-3 border border-stone-200 hover:border-brand-200 text-stone-700 hover:text-brand-700 rounded-full text-sm transition-all"
+        >
+          Hubungi Kami
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,107 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import PageLayout from '@/layouts/PageLayout.astro';
+import YouTubeEmbed from '@/components/media/YouTubeEmbed.astro';
+import { formatDate } from '@/utils/date';
+
+export const getStaticPaths = (async () => {
+  const entries = await getCollection('khotbah', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const ibadahLabel: Record<string, string> = {
+  'minggu-pagi': 'Ibadah Minggu Pagi',
+  'minggu-sore': 'Ibadah Minggu Sore',
+  'rabu': 'Persekutuan Rabu',
+  'jumat-agung': 'Ibadah Jumat Agung',
+  'natal': 'Ibadah Natal',
+  'paskah': 'Ibadah Paskah',
+  'lainnya': 'Ibadah Lainnya',
+};
+---
+
+<PageLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  type="article"
+  pubDate={entry.data.pubDate}
+  author={entry.data.preacher}
+>
+  <div class="bg-brand-950 pt-28 pb-0">
+    <div class="container-site max-w-4xl">
+      <!-- Back -->
+      <a
+        href="/media/khotbah"
+        class="inline-flex items-center gap-2 text-sm text-brand-300 hover:text-white mb-8 transition-colors"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Arsip Khotbah
+      </a>
+
+      <!-- Badges -->
+      <div class="flex flex-wrap gap-2 mb-6">
+        <span class="text-xs px-3 py-1 rounded-full bg-gold-500/20 text-gold-300 border border-gold-500/30 font-semibold">
+          {ibadahLabel[entry.data.ibadah] ?? entry.data.ibadah}
+        </span>
+        {entry.data.duration && (
+          <span class="text-xs px-3 py-1 rounded-full bg-white/10 text-white/60 border border-white/10">
+            {entry.data.duration}
+          </span>
+        )}
+      </div>
+
+      <!-- Title -->
+      <h1 class="font-display text-white mb-4 max-w-3xl">{entry.data.title}</h1>
+
+      <!-- Verse -->
+      <div class="font-verse italic text-gold-300 text-lg mb-6">{entry.data.ayat}</div>
+
+      <!-- Meta -->
+      <div class="flex flex-wrap items-center gap-4 text-sm text-white/50 pb-8">
+        <span>{entry.data.preacher}</span>
+        <span class="text-white/20">·</span>
+        <time datetime={entry.data.pubDate.toISOString()}>{formatDate(entry.data.pubDate)}</time>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video player -->
+  <div class="bg-stone-950 py-10">
+    <div class="container-site max-w-4xl">
+      <YouTubeEmbed videoId={entry.data.youtubeId} title={entry.data.title} lazy={false} />
+    </div>
+  </div>
+
+  <!-- Summary / description -->
+  <div class="py-16">
+    <div class="container-site max-w-3xl">
+      {/* Rich content from MD */}
+      <div class="prose prose-lg max-w-none
+        prose-headings:font-display prose-headings:text-brand-900
+        prose-blockquote:border-gold-400 prose-blockquote:font-verse prose-blockquote:italic prose-blockquote:text-brand-800
+        prose-a:text-brand-600">
+        <Content />
+      </div>
+
+      <!-- Tags -->
+      {entry.data.tags.length > 0 && (
+        <div class="mt-10 pt-8 border-t border-stone-200 flex flex-wrap gap-2">
+          {entry.data.tags.map((tag) => (
+            <span class="text-xs px-3 py-1.5 rounded-full border border-stone-200 text-stone-500">
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+</PageLayout>
