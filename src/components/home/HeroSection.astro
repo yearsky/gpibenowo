@@ -1,0 +1,89 @@
+---
+import { SITE } from '@/data/site';
+---
+
+<section class="relative min-h-screen flex items-center overflow-hidden bg-brand-950">
+  <!-- Background geometric pattern -->
+  <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+    <!-- Large cross motif background -->
+    <svg class="absolute -right-24 top-1/2 -translate-y-1/2 w-[600px] h-[600px] cross-deco" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="100" y1="0" x2="100" y2="200" stroke="white" stroke-width="1.5"/>
+      <line x1="0" y1="70" x2="200" y2="70" stroke="white" stroke-width="1.5"/>
+      <rect x="60" y="30" width="80" height="140" rx="2" stroke="white" stroke-width="0.5" fill="none"/>
+      <rect x="30" y="55" width="140" height="30" rx="2" stroke="white" stroke-width="0.5" fill="none"/>
+    </svg>
+
+    <!-- Subtle gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-br from-brand-950 via-brand-900/95 to-brand-800/80"></div>
+
+    <!-- Gold accent dots -->
+    <div class="absolute top-24 left-12 w-1.5 h-1.5 rounded-full bg-gold-400 opacity-60"></div>
+    <div class="absolute top-40 left-28 w-1 h-1 rounded-full bg-gold-300 opacity-40"></div>
+    <div class="absolute bottom-32 right-32 w-2 h-2 rounded-full bg-gold-400 opacity-40"></div>
+  </div>
+
+  <div class="container-site relative z-10 py-32">
+    <div class="max-w-3xl">
+      <!-- Eyebrow -->
+      <div class="flex items-center gap-3 mb-8">
+        <div class="h-px w-12 bg-gold-400"></div>
+        <span class="text-gold-400 text-sm font-medium tracking-widest uppercase font-body">
+          GPIB Benowo Surabaya
+        </span>
+      </div>
+
+      <!-- Main heading -->
+      <h1 class="font-display text-white mb-6 leading-[1.05]">
+        Bersatu dalam <em class="not-italic text-gold-300">Kasih</em>,<br/>
+        Bertumbuh dalam <em class="not-italic text-gold-300">Iman</em>
+      </h1>
+
+      <!-- Subtext -->
+      <p class="text-brand-200 text-lg leading-relaxed mb-10 max-w-xl font-body">
+        Selamat datang di gereja Tuhan. Tempat di mana setiap jiwa diterima, diperlengkapi, dan diutus untuk memancarkan kasih Kristus di Surabaya.
+      </p>
+
+      <!-- CTA buttons -->
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="/ibadah"
+          class="inline-flex items-center gap-2.5 px-6 py-3.5 bg-gold-500 hover:bg-gold-400 text-stone-950 font-semibold rounded-full transition-colors text-sm"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z"/>
+          </svg>
+          Jadwal Ibadah
+        </a>
+        <a
+          href="/tentang"
+          class="inline-flex items-center gap-2.5 px-6 py-3.5 border border-white/25 hover:border-white/50 text-white hover:bg-white/5 rounded-full transition-all text-sm font-medium"
+        >
+          Kenali Kami
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="mt-16 pt-8 border-t border-white/10 flex flex-wrap gap-8">
+        {[
+          { value: '1968', label: 'Tahun Berdiri' },
+          { value: '500+', label: 'Jemaat Aktif' },
+          { value: '7', label: 'Pelayanan per Minggu' },
+        ].map((stat) => (
+          <div>
+            <div class="font-display text-2xl font-bold text-gold-300">{stat.value}</div>
+            <div class="text-xs text-white/50 mt-0.5 tracking-wide">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30" aria-hidden="true">
+    <span class="text-xs tracking-widest uppercase text-[10px]">Gulir</span>
+    <div class="w-px h-10 bg-gradient-to-b from-white/30 to-transparent"></div>
+  </div>
+</section>

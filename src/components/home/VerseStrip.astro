@@ -1,0 +1,38 @@
+---
+interface Props {
+  verse?: string;
+  reference?: string;
+}
+
+const {
+  verse = 'Karena begitu besar kasih Allah akan dunia ini, sehingga Ia telah mengaruniakan Anak-Nya yang tunggal, supaya setiap orang yang percaya kepada-Nya tidak binasa, melainkan beroleh hidup yang kekal.',
+  reference = 'Yohanes 3:16',
+} = Astro.props;
+---
+
+<div class="bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 py-10 relative overflow-hidden">
+  <!-- Decorative cross motifs -->
+  <div class="absolute left-8 top-1/2 -translate-y-1/2 opacity-20" aria-hidden="true">
+    <svg width="40" height="60" viewBox="0 0 40 60" fill="none">
+      <line x1="20" y1="0" x2="20" y2="60" stroke="white" stroke-width="3"/>
+      <line x1="4" y1="18" x2="36" y2="18" stroke="white" stroke-width="3"/>
+    </svg>
+  </div>
+  <div class="absolute right-8 top-1/2 -translate-y-1/2 opacity-20" aria-hidden="true">
+    <svg width="40" height="60" viewBox="0 0 40 60" fill="none">
+      <line x1="20" y1="0" x2="20" y2="60" stroke="white" stroke-width="3"/>
+      <line x1="4" y1="18" x2="36" y2="18" stroke="white" stroke-width="3"/>
+    </svg>
+  </div>
+
+  <div class="container-site text-center max-w-3xl">
+    <blockquote>
+      <p class="font-verse italic text-stone-900 text-lg lg:text-xl leading-relaxed mb-3">
+        "{verse}"
+      </p>
+      <footer class="text-sm font-semibold text-stone-800 font-body tracking-wide">
+        — {reference}
+      </footer>
+    </blockquote>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '@/components/common/Header.astro';
+import Footer from '@/components/common/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  pubDate?: Date;
+  author?: string;
+  noindex?: boolean;
+  fullWidth?: boolean;
+}
+
+const { fullWidth = false, ...rest } = Astro.props;
+---
+
+<BaseLayout {...rest}>
+  <Header />
+  <main class:list={[{ 'pt-20': true }]}>
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>
