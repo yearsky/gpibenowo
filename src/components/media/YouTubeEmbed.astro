@@ -1,0 +1,78 @@
+---
+interface Props {
+  videoId: string;
+  title: string;
+  lazy?: boolean;
+}
+
+const { videoId, title, lazy = true } = Astro.props;
+const thumbnailUrl = `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`;
+const embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+---
+
+{lazy ? (
+  <div
+    class="yt-facade relative aspect-video rounded-2xl overflow-hidden bg-brand-950 cursor-pointer group"
+    data-video-id={videoId}
+    data-embed-url={embedUrl}
+    data-title={title}
+    role="button"
+    tabindex="0"
+    aria-label={`Putar video: ${title}`}
+  >
+    <!-- Thumbnail -->
+    <img
+      src={thumbnailUrl}
+      alt={title}
+      class="w-full h-full object-cover opacity-80 group-hover:opacity-90 transition-opacity"
+      loading="lazy"
+    />
+    <!-- Overlay gradient -->
+    <div class="absolute inset-0 bg-gradient-to-t from-brand-950/60 via-transparent to-transparent"></div>
+    <!-- Play button -->
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600/80 transition-all duration-200">
+        <svg class="w-7 h-7 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+    <!-- Title overlay -->
+    <div class="absolute bottom-0 left-0 right-0 p-4">
+      <p class="text-white text-sm font-medium line-clamp-1 drop-shadow">{title}</p>
+    </div>
+  </div>
+) : (
+  <div class="aspect-video rounded-2xl overflow-hidden">
+    <iframe
+      src={embedUrl}
+      title={title}
+      class="w-full h-full"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+)}
+
+<script>
+  document.querySelectorAll<HTMLElement>('.yt-facade').forEach((facade) => {
+    const activate = () => {
+      const embedUrl = facade.dataset.embedUrl!;
+      const title = facade.dataset.title ?? '';
+      const iframe = document.createElement('iframe');
+      iframe.src = embedUrl;
+      iframe.title = title;
+      iframe.className = 'w-full h-full';
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      facade.replaceWith(Object.assign(
+        document.createElement('div'),
+        { className: 'aspect-video rounded-2xl overflow-hidden' }
+      ));
+      (facade.parentElement ?? document.body).querySelector('div')?.appendChild(iframe);
+    };
+    facade.addEventListener('click', activate);
+    facade.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') activate(); });
+  });
+</script>

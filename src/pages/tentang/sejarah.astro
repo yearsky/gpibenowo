@@ -1,0 +1,98 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+
+<PageLayout
+  title="Sejarah Gereja"
+  description="Perjalanan panjang GPIB Benowo Surabaya dari tahun 1968 hingga saat ini dalam melayani jemaat Tuhan."
+>
+  <section class="bg-brand-950 py-24 relative overflow-hidden">
+    <div class="container-site relative">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="h-px w-8 bg-gold-400"></div>
+        <span class="text-gold-400 text-xs font-semibold tracking-widest uppercase">Sejarah</span>
+      </div>
+      <h1 class="font-display text-white max-w-2xl">Perjalanan iman yang panjang</h1>
+    </div>
+  </section>
+
+  <nav class="bg-white border-b border-stone-100 sticky top-20 z-30">
+    <div class="container-site">
+      <div class="flex gap-1 overflow-x-auto">
+        {[
+          { label: 'Profil', href: '/tentang' },
+          { label: 'Sejarah', href: '/tentang/sejarah' },
+          { label: 'Visi & Misi', href: '/tentang/visi-misi' },
+          { label: 'Pengurus', href: '/tentang/pengurus' },
+        ].map((link) => (
+          <a
+            href={link.href}
+            class:list={[
+              'shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors',
+              Astro.url.pathname === link.href
+                ? 'border-brand-600 text-brand-700'
+                : 'border-transparent text-stone-500 hover:text-stone-900',
+            ]}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </nav>
+
+  <section class="py-20">
+    <div class="container-site max-w-3xl">
+      <!-- Timeline -->
+      <div class="relative">
+        <div class="absolute left-6 top-0 bottom-0 w-px bg-stone-200" aria-hidden="true"></div>
+
+        {[
+          {
+            year: '1968',
+            title: 'Pendirian Jemaat',
+            desc: 'GPIB Benowo resmi berdiri sebagai jemaat baru di wilayah Surabaya Barat. Dengan jemaat awal yang kecil, ibadah pertama diadakan di rumah salah satu anggota majelis.',
+          },
+          {
+            year: '1975',
+            title: 'Pembangunan Gedung Pertama',
+            desc: 'Berkat persembahan jemaat yang terkumpul selama bertahun-tahun, gedung gereja pertama berhasil dibangun dan diresmikan. Sebuah tonggak penting dalam sejarah jemaat.',
+          },
+          {
+            year: '1992',
+            title: 'Renovasi & Perluasan',
+            desc: 'Seiring pertumbuhan jemaat yang pesat, gedung gereja direnovasi dan diperluas untuk menampung lebih banyak jemaat dalam setiap ibadah.',
+          },
+          {
+            year: '2005',
+            title: 'Era Pelayanan Digital',
+            desc: 'GPIB Benowo mulai memanfaatkan teknologi untuk pelayanan — mulai dari rekaman khotbah hingga komunikasi dengan jemaat melalui media digital.',
+          },
+          {
+            year: '2020',
+            title: 'Adaptasi di Masa Pandemi',
+            desc: 'Pandemi COVID-19 mendorong inovasi dalam pelayanan. GPIB Benowo sukses menyelenggarakan ibadah daring melalui YouTube Live yang dapat diakses seluruh jemaat dari rumah.',
+          },
+          {
+            year: 'Kini',
+            title: 'Terus Bertumbuh',
+            desc: 'Dengan lebih dari 500 jemaat aktif dan berbagai kelompok pelayanan yang dinamis, GPIB Benowo terus melangkah maju dalam misi memberitakan Injil di Surabaya dan sekitarnya.',
+          },
+        ].map((item) => (
+          <div class="relative flex gap-8 pb-12 last:pb-0">
+            <!-- Dot -->
+            <div class="relative z-10 flex items-center justify-center w-12 h-12 rounded-full bg-white border-2 border-brand-200 shrink-0">
+              <div class="w-3 h-3 rounded-full bg-brand-500"></div>
+            </div>
+            <!-- Content -->
+            <div class="flex-1 pt-2">
+              <span class="text-xs font-bold text-gold-600 tracking-widest uppercase">{item.year}</span>
+              <h3 class="font-display font-semibold text-brand-900 text-xl mt-1 mb-2">{item.title}</h3>
+              <p class="text-stone-600 leading-relaxed text-sm">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</PageLayout>
